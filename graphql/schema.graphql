@@ -1,0 +1,38 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    users: [User]! @paginate(type: "paginator" model: "App\\User")
+    user(id: ID @eq): User @find(model: "App\\User")
+    events: [Event]! @paginate(type: "paginator" model: "App\\Event")
+    event(id: ID @eq): Event @find(model: "App\\Event")
+    current_habits: [CurrentHabit]! @paginate(type: "paginator" model: "App\\CurrentHabit")
+    current_habit(id: ID @eq): CurrentHabit @find(model: "App\\CurrentHabit")
+}
+
+type User {
+    id: ID!
+    name: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    current_habits: [CurrentHabit!]! @hasMany
+    events: [Event!]! @hasMany
+}
+
+type CurrentHabit {
+    id: ID!
+    name: String!
+    user: User! @belongsTo
+}
+
+type Event {
+    id: ID!
+    day: Date!
+    habits: String!
+    done_habits: String!
+    good_day: Boolean!
+    user: User! @belongsTo
+}

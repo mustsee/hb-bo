@@ -1780,8 +1780,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      users: []
+    };
+  },
   mounted: function mounted() {
+    var _this = this;
+
     console.log('Component mounted.');
+    var url = 'http://www.hb.com/graphql';
+    var call = axios({
+      url: url,
+      method: 'post',
+      data: {
+        query: "query {users(count: 10) {data{id,name}}}"
+      }
+    }).then(function (res) {
+      console.log('res', res);
+      _this.users = res.data.data.users.data;
+    });
   }
 });
 
@@ -37076,32 +37094,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c(
+          "div",
+          { staticClass: "card" },
+          [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("Example Component")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
+            _vm._l(_vm.users, function(user) {
+              return _c("div", { staticClass: "card-body" }, [
+                _vm._v(
+                  "\n                   " +
+                    _vm._s(user.id) +
+                    ". " +
+                    _vm._s(user.name) +
+                    "\n                "
+                )
+              ])
+            })
+          ],
+          2
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
