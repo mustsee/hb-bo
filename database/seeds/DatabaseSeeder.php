@@ -11,6 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory(App\User::class, 10)->create()->each(function ($user) {
+            for ($i = 1; $i <= 10; $i++) {
+                if (rand(0, 2)) {
+                    $user->events()->save(factory(App\Event::class)->make());
+                }
+                if (rand(0, 1)) {
+                    $user->habits()->save(factory(App\CurrentHabit::class)->make());
+                }
+            }
+        });
     }
 }

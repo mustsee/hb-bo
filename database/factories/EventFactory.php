@@ -1,6 +1,7 @@
 <?php
 
-use App\User;
+use App\Event;
+use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 /*
@@ -14,8 +15,13 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Event::class, function (Faker $faker) {
     return [
-        'name' => $faker->firstName,
+        'day' => $faker->date(),
+        'habits' => json_encode(
+            [Str::random(10), Str::random(10), Str::random(10)]
+        ),
+        'done_habits' => json_encode([Str::random(15)]),
+        'good_day' => $faker->boolean,
     ];
 });
