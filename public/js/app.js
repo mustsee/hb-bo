@@ -1794,11 +1794,11 @@ __webpack_require__.r(__webpack_exports__);
       url: url,
       method: 'post',
       data: {
-        query: "query {users(count: 10) {data{id,name}}}"
+        query: "{users{id,name}}"
       }
     }).then(function (res) {
       console.log('res', res);
-      _this.users = res.data.data.users.data;
+      _this.users = res.data.data.users;
     });
   }
 });

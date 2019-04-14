@@ -27,12 +27,10 @@
             let call = axios({
                 url: url,
                 method: 'post',
-                data: {
-                    query: `query {users(count: 10) {data{id,name}}}`
-                }
+                data: {query: `{users{id,name}}`}
             }).then((res) => {
                 console.log('res', res);
-                this.users = res.data.data.users.data
+                this.users = res.data.data.users
             });
         }
     }
